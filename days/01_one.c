@@ -1,49 +1,10 @@
+#include "../lib/io.h"
 #include <ctype.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-char *readfile(const char *filename) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        fprintf(stderr, "Failed to open \"%s\".\n", filename);
-        exit(1);
-        return NULL;
-    }
-
-    if (fseek(file, 0, SEEK_END) != 0) {
-        fprintf(stderr, "Failed to seek \"%s\".\n", filename);
-        fclose(file);
-        exit(1);
-        return NULL;
-    }
-
-    ptrdiff_t filesize = ftell(file);
-    if (filesize == (ptrdiff_t)-1) {
-        fprintf(stderr, "Failed to get size of \"%s\".\n", filename);
-        fclose(file);
-        exit(1);
-        return NULL;
-    }
-
-    char *buf = malloc(sizeof(char) * (filesize + 1));
-
-    rewind(file);
-    size_t bytes_read = fread(buf, 1, filesize, file);
-    if (bytes_read != (size_t)filesize) {
-        fprintf(stderr, "Failed to read \"%s\".\n", filename);
-        fclose(file);
-        exit(1);
-        return NULL;
-    }
-    buf[bytes_read] = '\0';
-
-    fclose(file);
-
-    return buf;
-}
 
 size_t get_lists(const char *raw, int32_t **left, int32_t **right) {
     int32_t l, r;
@@ -164,7 +125,7 @@ int32_t part2(const char *content) {
 }
 
 int main(void) {
-    char *content = readfile("./inputs/01_day_one.txt");
+    char *content = io_readfile("./inputs/01_day_one.txt");
 
     printf("answer (part1) = %d\n", part1(content));
     printf("answer (part2) = %d\n", part2(content));
