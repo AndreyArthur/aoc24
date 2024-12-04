@@ -18,6 +18,7 @@ run: $(BINS)
 	./$(BIN_DIR)/01_one
 	./$(BIN_DIR)/02_two
 	./$(BIN_DIR)/03_three
+	./$(BIN_DIR)/04_four
 
 clean:
 	rm -rf $(BIN_DIR) $(OBJ_DIR)
@@ -26,6 +27,7 @@ $(BINS): $(BIN_DIR) $(SOURCES) $(LIB_OBJECTS)
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/01_one $(SRC_DIR)/01_one.c $(LIB_OBJECTS)
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/02_two $(SRC_DIR)/02_two.c  $(LIB_OBJECTS)
 	$(CC) $(CFLAGS) -o $(BIN_DIR)/03_three $(SRC_DIR)/03_three.c  $(LIB_OBJECTS)
+	$(CC) $(CFLAGS) -o $(BIN_DIR)/04_four $(SRC_DIR)/04_four.c  $(LIB_OBJECTS)
 
 $(LIB_OBJECTS): $(OBJ_DIR) $(LIB_SOURCES)
 	$(CC) $(CFLAGS) -c $(LIB_DIR)/io.c -o $(OBJ_DIR)/io.o
